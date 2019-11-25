@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Lesson } from './lesson.model';
 
 @Component({
   selector: 'app-tabla',
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class TablaComponent implements OnInit {
   constructor() {}
 
-  dataSource = [];
+  dataSource: Array<Lesson> = [
+    {
+      description: "Informatica"
+    }
+  ];
 
   ngOnInit() {}
 }
