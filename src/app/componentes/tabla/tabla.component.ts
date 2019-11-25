@@ -9,7 +9,13 @@ import { Lesson } from './lesson.model';
 export class TablaComponent implements OnInit {
   constructor() {}
 
-  dataSource: Array<Lesson> = [];
+  dataSource: Array<Lesson> = [
+    {
+      description: 'Matematicas',
+      seqNo: 0,
+      duration: '1 Hora',
+    },
+  ];
 
   ngOnInit() {}
 }
