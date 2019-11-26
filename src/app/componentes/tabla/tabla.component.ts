@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExampleService } from '../../services/example.service';
 import { Example } from 'src/app/models/example.model';
-import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-tabla',
@@ -18,14 +19,34 @@ export class TablaComponent implements OnInit {
   examples: Array<Example> = [];
   displayedColumns = ['userId', 'id', 'title'];
   dataSource;
+  filtroIdUsuario = new FormControl('');
+  filtroId = new FormControl('');
+  filtroDescripcion = new FormControl('');
+  valoresFiltros = {
+    idUsuario: '',
+    id: '',
+    descripcion: '',
+  };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.filtroDescripcion.valueChanges.subscribe(descripcion => {
+      this.valoresFiltros.descripcion = descripcion;
+      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
+    });
+    this.filtroId.valueChanges.subscribe(id => {
+      this.valoresFiltros.id = id;
+      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
+    });
+    this.filtroIdUsuario.valueChanges.subscribe(idUsuario => {
+      this.valoresFiltros.idUsuario = idUsuario;
+      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
+    });
+  }
 }
 
-export class ExampleDataSource extends DataSource<any> {
+export class ExampleDataSource extends MatTableDataSource<any> {
   constructor(private exampleService: ExampleService) {
     super();
-    this.connect();
   }
   connect(): Observable<Example[]> {
     return this.exampleService.getTodos();

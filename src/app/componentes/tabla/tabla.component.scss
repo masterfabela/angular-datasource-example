@@ -1,4 +1,20 @@
 .table-card {
   margin: 24px;
+  margin-top: 200px;
   border-radius: 12px;
+  position: relative;
+  height: 660px;
+}
+
+.table-content {
+  height: 100%;
+  overflow: auto;
+}
+
+.filter {
+  width: 75%;
+}
+
+.mat-header-cell {
+  display: grid;
 }

@@ -12,6 +12,7 @@ const httpOptions = {
 
 @Injectable()
 export class ExampleService {
+  searchOptions = [];
   exampleUrl = 'https://jsonplaceholder.typicode.com/todos/1';
   constructor(private http: HttpClient) {}
 

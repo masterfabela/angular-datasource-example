@@ -1,20 +1,36 @@
 <mat-card class="table-card">
-  <mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="userId">
-      <mat-header-cell *matHeaderCellDef>User id</mat-header-cell>
-      <mat-cell *matCellDef="let example">{{example.userId}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell class="description-cell"
-        *matCellDef="let example">{{example.id}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
-      <mat-cell class="duration-cell"
-        *matCellDef="let example">{{example.title}}</mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+  <mat-card-content class="table-content">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="userId">
+        <mat-header-cell *matHeaderCellDef
+          >User id
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Buscar</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let example">{{ example.userId }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef
+          >Id
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Buscar</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let example">{{
+          example.id
+        }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Descripcion</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let example">{{
+          example.title
+        }}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
 </mat-card>

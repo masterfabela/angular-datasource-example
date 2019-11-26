@@ -3,7 +3,9 @@ Este proyecto es un ejemplo para la creacion de tablas con angular material y
 datasources
 
 Ejemplo obtenido de:  
-https://blog.angular-university.io/angular-material-data-table/
+https://blog.angular-university.io/angular-material-data-table/  
+https://medium.com/@uditgogoi1/search-bar-with-autocomplete-using-angular-5-and-angular-material-c5a77a429da7  
+https://stackblitz.com/edit/angular-f3mmmp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 

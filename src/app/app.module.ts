@@ -7,17 +7,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 import { TablaComponent } from './componentes/tabla/tabla.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { HomePageComponent } from './layout/home-page/home-page.component';
+import { SearchBarComponent } from './componentes/search-bar/search-bar.component';
+import { ExampleService } from './services/example.service';
 
 @NgModule({
-  declarations: [AppComponent, TablaComponent],
+  declarations: [AppComponent, TablaComponent, HomePageComponent, SearchBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ScrollingModule,
   ],
-  providers: [],
+  providers: [ExampleService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
