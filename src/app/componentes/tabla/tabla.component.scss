@@ -2,7 +2,8 @@
   margin: 24px;
   border-radius: 12px;
   position: relative;
-  height: 660px;
+  height: 100%;
+  width: 100%;
 }
 
 .table-content {
@@ -12,7 +13,8 @@
 }
 
 .mat-row {
-  //border: none;
+  border: none;
+  border-radius: 5px;
 }
 
 .mat-row:nth-child(2n) {
