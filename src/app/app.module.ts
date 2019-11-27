@@ -9,11 +9,11 @@ import { TablaComponent } from './componentes/tabla/tabla.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HomePageComponent } from './layout/home-page/home-page.component';
-import { SearchBarComponent } from './componentes/search-bar/search-bar.component';
 import { ExampleService } from './services/example.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, TablaComponent, HomePageComponent, SearchBarComponent],
+  declarations: [AppComponent, TablaComponent, HomePageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +21,7 @@ import { ExampleService } from './services/example.service';
     MaterialModule,
     HttpClientModule,
     ScrollingModule,
+    ReactiveFormsModule,
   ],
   providers: [ExampleService],
   bootstrap: [AppComponent],

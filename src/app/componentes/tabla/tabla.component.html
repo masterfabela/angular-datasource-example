@@ -2,21 +2,21 @@
   <mat-card-content class="table-content">
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="userId">
-        <mat-header-cell *matHeaderCellDef
-          >User id
+        <mat-header-cell *matHeaderCellDef>
+          Identificador Usuario
           <mat-form-field class="filter" floatLabel="never">
             <mat-label>Buscar</mat-label>
-            <input matInput />
+            <input matInput [formControl]="filtroIdUsuario"/>
           </mat-form-field>
         </mat-header-cell>
         <mat-cell *matCellDef="let example">{{ example.userId }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef
-          >Id
+        <mat-header-cell *matHeaderCellDef>
+          Id
           <mat-form-field class="filter" floatLabel="never">
             <mat-label>Buscar</mat-label>
-            <input matInput />
+            <input matInput [formControl]="filtroId"/>
           </mat-form-field>
         </mat-header-cell>
         <mat-cell class="description-cell" *matCellDef="let example">{{
@@ -24,7 +24,13 @@
         }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef>Descripcion</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          Descripcion
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Buscar</mat-label>
+            <input matInput [formControl]="filtroDescripcion">
+          </mat-form-field>
+        </mat-header-cell>
         <mat-cell class="duration-cell" *matCellDef="let example">{{
           example.title
         }}</mat-cell>

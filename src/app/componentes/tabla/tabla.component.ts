@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExampleService } from '../../services/example.service';
 import { Example } from 'src/app/models/example.model';
-import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
@@ -13,7 +12,11 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class TablaComponent implements OnInit {
   constructor(examplesService: ExampleService) {
-    this.dataSource = new ExampleDataSource(examplesService);
+    this.dataSource = new MatTableDataSource();
+    examplesService.getTodos().subscribe(examples => {
+      this.dataSource.data = examples;
+      this.dataSource.filterPredicate = this.createFilter();
+    });
   }
 
   examples: Array<Example> = [];
@@ -29,27 +32,39 @@ export class TablaComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.registrarFiltros();
+  }
+
+  registrarFiltros() {
     this.filtroDescripcion.valueChanges.subscribe(descripcion => {
-      this.valoresFiltros.descripcion = descripcion;
+      this.valoresFiltros.descripcion = descripcion.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
     });
     this.filtroId.valueChanges.subscribe(id => {
-      this.valoresFiltros.id = id;
+      this.valoresFiltros.id = id.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
     });
     this.filtroIdUsuario.valueChanges.subscribe(idUsuario => {
-      this.valoresFiltros.idUsuario = idUsuario;
+      this.valoresFiltros.idUsuario = idUsuario.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
     });
   }
-}
 
-export class ExampleDataSource extends MatTableDataSource<any> {
-  constructor(private exampleService: ExampleService) {
-    super();
+  createFilter(): (data: any, filtros: string) => boolean {
+    const filterFunction = function(data, filtros): boolean {
+      const terminosDeBusqueda = JSON.parse(filtros);
+      return (
+        data.userId
+          .toString()
+          .toLowerCase()
+          .indexOf(terminosDeBusqueda.idUsuario) !== -1 &&
+        data.title.toLowerCase().indexOf(terminosDeBusqueda.descripcion) !== -1 &&
+        data.id
+          .toString()
+          .toLowerCase()
+          .indexOf(terminosDeBusqueda.id) !== -1
+      );
+    };
+    return filterFunction;
   }
-  connect(): Observable<Example[]> {
-    return this.exampleService.getTodos();
-  }
-  disconnect() {}
 }
