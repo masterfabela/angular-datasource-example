@@ -1,8 +1,8 @@
 <div class="column-header">
   <label class="column-name">{{nombre}}</label>
-  <mat-form-field class="filter" floatLabel="never">
+  <mat-form-field *ngIf="controlador" class="filter" floatLabel="never">
     <mat-label>Buscar</mat-label>
-    <input matInput [formControl]="controlador" />
+    <input  matInput [formControl]="controlador" />
   </mat-form-field>
 </div>
   

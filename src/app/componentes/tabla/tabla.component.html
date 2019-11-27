@@ -3,8 +3,8 @@
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="userId">
         <mat-header-cell *matHeaderCellDef>
-          <app-search-table-header 
-            [controlador]="filtroIdUsuario" 
+          <app-search-table-header
+            [controlador]="filtroIdUsuario"
             [nombre]="'Identificador Usuario'"
           ></app-search-table-header>
         </mat-header-cell>
@@ -32,6 +32,17 @@
           example.title
         }}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="title1">
+          <mat-header-cell *matHeaderCellDef>
+            <app-search-table-header 
+              [controlador]="filtroDescripcion" 
+              [nombre]="'Descripcion'"
+            ></app-search-table-header>
+          </mat-header-cell>
+          <mat-cell class="duration-cell" *matCellDef="let example">{{
+            example.title
+          }}</mat-cell>
+        </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>

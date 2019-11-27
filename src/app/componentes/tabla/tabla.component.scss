@@ -1,6 +1,5 @@
 .table-card {
   margin: 24px;
-  margin-top: 200px;
   border-radius: 12px;
   position: relative;
   height: 660px;
@@ -9,4 +8,13 @@
 .table-content {
   height: 100%;
   overflow: auto;
+  z-index: -1;
+}
+
+.mat-row {
+  //border: none;
+}
+
+.mat-row:nth-child(2n) {
+  background-color: #e8edea;
 }

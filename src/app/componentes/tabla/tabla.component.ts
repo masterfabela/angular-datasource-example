@@ -15,35 +15,39 @@ export class TablaComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     examplesService.getTodos().subscribe(examples => {
       this.dataSource.data = examples;
-      this.dataSource.filterPredicate = this.createFilter();
+      if (examples.length < 100) {
+        this.dataSource.filterPredicate = this.createFilter();
+        this.registrarFiltros();
+      }
     });
   }
 
   examples: Array<Example> = [];
-  displayedColumns = ['userId', 'id', 'title'];
+  displayedColumns = ['userId', 'id', 'title', 'title1'];
   dataSource;
-  filtroIdUsuario = new FormControl('');
-  filtroId = new FormControl('');
-  filtroDescripcion = new FormControl('');
+  filtroIdUsuario: FormControl;
+  filtroId: FormControl;
+  filtroDescripcion: FormControl;
   valoresFiltros = {
     idUsuario: '',
     id: '',
     descripcion: '',
   };
 
-  ngOnInit() {
-    this.registrarFiltros();
-  }
+  ngOnInit() {}
 
   registrarFiltros() {
+    this.filtroDescripcion = new FormControl('');
     this.filtroDescripcion.valueChanges.subscribe(descripcion => {
       this.valoresFiltros.descripcion = descripcion.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
     });
+    this.filtroId = new FormControl('');
     this.filtroId.valueChanges.subscribe(id => {
       this.valoresFiltros.id = id.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
     });
+    this.filtroIdUsuario = new FormControl('');
     this.filtroIdUsuario.valueChanges.subscribe(idUsuario => {
       this.valoresFiltros.idUsuario = idUsuario.toLowerCase();
       this.dataSource.filter = JSON.stringify(this.valoresFiltros);
