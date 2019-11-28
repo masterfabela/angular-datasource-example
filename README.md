@@ -7,6 +7,9 @@ https://blog.angular-university.io/angular-material-data-table/
 https://medium.com/@uditgogoi1/search-bar-with-autocomplete-using-angular-5-and-angular-material-c5a77a429da7  
 https://stackblitz.com/edit/angular-f3mmmp
 
+Tabla editable:  
+https://stackblitz.com/edit/angular-mat-table-editable-dxfzzu?file=package.json
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
 ## Development server

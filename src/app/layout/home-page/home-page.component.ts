@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Example } from 'src/app/models/example.model';
 import { ExampleService } from 'src/app/services/example.service';
 
 @Component({
@@ -8,13 +7,13 @@ import { ExampleService } from 'src/app/services/example.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  examples: Example[];
+  columnasTabla: string[];
+  servicioTabla;
 
-  constructor(private exampleService: ExampleService) {}
-
-  ngOnInit() {
-    this.exampleService.getTodos().subscribe(examples => {
-      this.examples = examples;
-    });
+  constructor(private exampleService: ExampleService) {
+    this.columnasTabla = ['Usuario', 'Id', 'Descripcion'];
+    this.servicioTabla = this.exampleService.getTodos();
   }
+
+  ngOnInit() {}
 }

@@ -1,22 +1,19 @@
 .table-card {
   margin: 24px;
-  border-radius: 12px;
   position: relative;
   height: 100%;
-  width: 100%;
 }
 
 .table-content {
   height: 100%;
   overflow: auto;
-  z-index: -1;
 }
 
 .mat-row {
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .mat-row:nth-child(2n) {
-  background-color: #e8edea;
+  background-color: #e7f6ff;
 }

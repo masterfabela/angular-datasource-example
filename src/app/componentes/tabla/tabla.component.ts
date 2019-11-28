@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ExampleService } from '../../services/example.service';
-import { Example } from 'src/app/models/example.model';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tabla',
@@ -11,63 +11,60 @@ import { MatTableDataSource } from '@angular/material';
   providers: [ExampleService],
 })
 export class TablaComponent implements OnInit {
-  constructor(examplesService: ExampleService) {
-    this.dataSource = new MatTableDataSource();
-    examplesService.getTodos().subscribe(examples => {
-      this.dataSource.data = examples;
-      if (examples.length < 100) {
-        this.dataSource.filterPredicate = this.createFilter();
-        this.registrarFiltros();
+  @Input() dataService: Observable<any>;
+  @Input() columns: string[];
+
+  dataSource: MatTableDataSource<object>;
+  displayedColumns = this.columns;
+  controles: FormControl[];
+  valoresFiltros: string[];
+
+  constructor() {
+    console.log([this.displayedColumns]);
+    this.dataService.subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      if (this.dataSource.data.length < 1000) {
+        this.activarFiltrosLocales();
       }
     });
   }
 
-  examples: Array<Example> = [];
-  displayedColumns = ['userId', 'id', 'title', 'title1'];
-  dataSource;
-  filtroIdUsuario: FormControl;
-  filtroId: FormControl;
-  filtroDescripcion: FormControl;
-  valoresFiltros = {
-    idUsuario: '',
-    id: '',
-    descripcion: '',
-  };
+  ngOnInit() {
+    console.log('inicia');
+  }
 
-  ngOnInit() {}
+  activarFiltrosLocales() {
+    this.dataSource.filterPredicate = this.createFilter();
+    this.registrarFiltros();
+  }
 
   registrarFiltros() {
-    this.filtroDescripcion = new FormControl('');
-    this.filtroDescripcion.valueChanges.subscribe(descripcion => {
-      this.valoresFiltros.descripcion = descripcion.toLowerCase();
-      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
+    this.columns.forEach(() => {
+      const filtro = new FormControl('');
+      filtro.valueChanges.subscribe(valorFiltro => {
+        this.valoresFiltros.push(valorFiltro);
+      });
+      this.controles.push(filtro);
     });
-    this.filtroId = new FormControl('');
-    this.filtroId.valueChanges.subscribe(id => {
-      this.valoresFiltros.id = id.toLowerCase();
-      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
-    });
-    this.filtroIdUsuario = new FormControl('');
-    this.filtroIdUsuario.valueChanges.subscribe(idUsuario => {
-      this.valoresFiltros.idUsuario = idUsuario.toLowerCase();
-      this.dataSource.filter = JSON.stringify(this.valoresFiltros);
-    });
+    this.dataSource.filter = JSON.stringify(this.valoresFiltros);
   }
 
   createFilter(): (data: any, filtros: string) => boolean {
-    const filterFunction = function(data, filtros): boolean {
+    const filterFunction = (data, filtros): boolean => {
       const terminosDeBusqueda = JSON.parse(filtros);
-      return (
-        data.userId
-          .toString()
-          .toLowerCase()
-          .indexOf(terminosDeBusqueda.idUsuario) !== -1 &&
-        data.title.toLowerCase().indexOf(terminosDeBusqueda.descripcion) !== -1 &&
-        data.id
-          .toString()
-          .toLowerCase()
-          .indexOf(terminosDeBusqueda.id) !== -1
-      );
+      const valoresFila = Object.values(data);
+      let retorno = true;
+      for (let i: number; i < terminosDeBusqueda.length; i++) {
+        if (
+          valoresFila[i]
+            .toString()
+            .toLowerCase()
+            .indexOf(terminosDeBusqueda[i]) === -1
+        ) {
+          retorno = false;
+        }
+      }
+      return retorno;
     };
     return filterFunction;
   }
